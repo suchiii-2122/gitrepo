@@ -7,7 +7,14 @@ app = func.FunctionApp(http_auth_level=func.AuthLevel.FUNCTION)
 @app.route(route="adibgitstatus")
 def adibgitstatus(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
-    from openai import AzureOpenAI
+    try:
+        from openai import AzureOpenAI
+    except Exception as e:
+        logging.error(f'Error due to : {e}')
+        return func.HttpResponse(
+            "Failed to install library openai",
+            status_code = 500
+        )
     name = req.params.get('name')
     if not name:
         try:
