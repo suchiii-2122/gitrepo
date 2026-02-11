@@ -1,5 +1,6 @@
 import azure.functions as func
 import logging
+from openai import AzureOpenAI
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.FUNCTION)
 
